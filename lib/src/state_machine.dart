@@ -386,6 +386,7 @@ class StateTransition implements Function {
   /// List of valid [State]s that the machine must be in
   /// for this transition to occur.
   List<State> _from;
+  List<State> get from => _from;
 
   /// [StateMachine] that this state transition is a part of.
   StateMachine _machine;
@@ -402,6 +403,7 @@ class StateTransition implements Function {
   /// [State] to transition the machine to when executing
   /// this transition.
   State _to;
+  State get to => _to;
 
   StateTransition._(String this.name, StateMachine this._machine,
       List<State> this._from, State this._to) {
