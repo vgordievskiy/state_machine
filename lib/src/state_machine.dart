@@ -227,8 +227,8 @@ class StateMachine {
   /// List of states created by for this machine.
   List<State> _states = [];
 
-  StateMachine(String this.name) {
-    _stateChangeController = new StreamController();
+  StateMachine(String this.name, {bool isSync: false}) {
+    _stateChangeController = new StreamController(sync: isSync);
     _stateChangeStream = _stateChangeController.stream.asBroadcastStream();
 
     /// Start the machine in a temporary state.
