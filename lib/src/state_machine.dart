@@ -93,9 +93,10 @@ class State implements Function {
   StreamController _onLeaveController;
 
   State._(String this.name, StateMachine this._machine, {bool listenTo: true}) {
-    _onEnterController = new StreamController(sync: _machine.isSync);
+    bool isSync = _machine?.isSync ?? false;
+    _onEnterController = new StreamController(sync: isSync);
     _onEnter = _onEnterController.stream.asBroadcastStream();
-    _onLeaveController = new StreamController(sync: _machine.isSync);
+    _onLeaveController = new StreamController(sync: isSync);
     _onLeave = _onLeaveController.stream.asBroadcastStream();
 
     if (!listenTo) return;
