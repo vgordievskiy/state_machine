@@ -93,9 +93,9 @@ class State implements Function {
   StreamController _onLeaveController;
 
   State._(String this.name, StateMachine this._machine, {bool listenTo: true}) {
-    _onEnterController = new StreamController();
+    _onEnterController = new StreamController(sync: _machine.isSync);
     _onEnter = _onEnterController.stream.asBroadcastStream();
-    _onLeaveController = new StreamController();
+    _onLeaveController = new StreamController(sync: _machine.isSync);
     _onLeave = _onLeaveController.stream.asBroadcastStream();
 
     if (!listenTo) return;
@@ -204,6 +204,7 @@ class StateChange {
 /// states and the state transitions. See [State] and
 /// [StateTransition] for more information.
 class StateMachine {
+  final bool isSync;
   /// Name of the state machine. Used for debugging.
   String name;
 
@@ -227,7 +228,7 @@ class StateMachine {
   /// List of states created by for this machine.
   List<State> _states = [];
 
-  StateMachine(String this.name, {bool isSync: false}) {
+  StateMachine(String this.name, {this.isSync: false}) {
     _stateChangeController = new StreamController(sync: isSync);
     _stateChangeStream = _stateChangeController.stream.asBroadcastStream();
 
@@ -410,7 +411,7 @@ class StateTransition implements Function {
     if (_to == State.any)
       throw new ArgumentError(
           'Cannot transition to the wildcard state "State.any"');
-    _streamController = new StreamController();
+    _streamController = new StreamController(sync: _machine.isSync);
     _stream = _streamController.stream.asBroadcastStream();
   }
 
