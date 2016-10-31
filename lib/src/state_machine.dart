@@ -15,6 +15,7 @@
 library state_machine.src.state_machine;
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:state_machine/src/exceptions.dart';
 
@@ -228,6 +229,8 @@ class StateMachine {
 
   /// List of states created by for this machine.
   List<State> _states = [];
+
+  UnmodifiableListView get states => new UnmodifiableListView(_states);
 
   StateMachine(String this.name, {this.isSync: false}) {
     _stateChangeController = new StreamController(sync: isSync);
