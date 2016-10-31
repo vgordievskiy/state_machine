@@ -230,7 +230,7 @@ class StateMachine {
   /// List of states created by for this machine.
   List<State> _states = [];
 
-  UnmodifiableListView get states => new UnmodifiableListView(_states);
+  UnmodifiableListView<State> get states => new UnmodifiableListView(_states);
 
   StateMachine(String this.name, {this.isSync: false}) {
     _stateChangeController = new StreamController(sync: isSync);
